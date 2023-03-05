@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <_PostProcessingItem Include="OpenWeather-io.app/Contents/MacOS/OpenWeather-io">
+      <BCSymbolMapName>OpenWeather-io.bcsymbolmap</BCSymbolMapName>
+      <NoDSymUtil>true</NoDSymUtil>
+      <dSYMSourcePathExists>false</dSYMSourcePathExists>
+      <NoSymbolStrip>true</NoSymbolStrip>
+      <dSYMInfoPlistRelativePath>OpenWeather-io.app.dSYM\Contents\Info.plist</dSYMInfoPlistRelativePath>
+      <SymbolFile>/Users/josephmcenroe/Coding/projects/WeatherApp/openWeather-io/OpenWeather-io/OpenWeather-io/obj/Debug/net7.0-maccatalyst/maccatalyst-x64/mtouch-symbols.list</SymbolFile>
+      <DSymName>OpenWeather-io.app.dSYM</DSymName>
+      <SourceProjectPath>/Users/josephmcenroe/Coding/projects/WeatherApp/openWeather-io/OpenWeather-io/OpenWeather-io</SourceProjectPath>
+    </_PostProcessingItem>
+  </ItemGroup>
+</Project>
