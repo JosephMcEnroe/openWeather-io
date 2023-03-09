@@ -3,26 +3,44 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="OpenWeather_io.MainPage">
 
-    <ScrollView>
-       <VerticalStackLayout
-            BackgroundColor="#48AFFF">
-            <Label
-                x:Name="tempLabel"
-                Text="Temperature:"
-                TextColor="White"
-                FontSize="30"
-                FontAttributes="Bold"/>
-            <Label
-                x:Name="tempText"/>
-            <Label
-                x:Name="weatherLabel"
-                Text="Weather:"
-                TextColor="White"
-                FontSize="30"
-                FontAttributes="Bold"/>
-            <Label
-                x:Name="weatherText"
-                />
+    <ScrollView
+        x:Name="scrollBack"
+        BackgroundColor="#48afff">
+        <VerticalStackLayout
+            
+            Margin="0,50,0,0">
+
+            <Image x:Name="weatherIcon"
+                   WidthRequest="100"/>
+
+            <Label x:Name="tempLabel" 
+                   HorizontalOptions="Center"   
+                   Text="Tempurature"
+                   TextColor="White"
+                   Opacity=".6"
+                   FontSize="20"
+                   FontAttributes="Bold"/>
+            
+            <Label x:Name="tempText"
+                   HorizontalOptions="Center"
+                   Opacity=".8"
+                   FontSize="50"
+                   FontAttributes="Bold"/>
+            
+            <Label x:Name="weatherLabel"
+                   HorizontalOptions="Center"
+                   Text="Weather"
+                   TextColor="White"
+                   Opacity=".6"
+                   FontSize="20"
+                   FontAttributes="Bold"/>
+            
+            <Label x:Name="weatherText"
+                   HorizontalOptions="Center"
+                   Opacity=".8"
+                   FontSize="50"
+                   FontAttributes="Bold"/>
+
         </VerticalStackLayout>
     </ScrollView>
 

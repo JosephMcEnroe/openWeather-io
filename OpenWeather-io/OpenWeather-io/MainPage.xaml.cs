@@ -1,29 +1,35 @@
 ﻿using Newtonsoft.Json;
+using OpenWeather_io;
+using System;
 
 namespace OpenWeather_io;
 
 public partial class MainPage : ContentPage
-{ 
-	public MainPage()
-	{
-        Report report = Task.Run(() => OpenWeather(44, -73.6)).Result;
-        //InitializeComponent();
-        InitializeComponent();
-        tempText.Text = report.Temperature;
-        weatherText.Text = report.Weather;
-        //Task.Run(async () =>
-        //{
+{
 
-        //});
-
-    }
-
-    private static async Task<Report> OpenWeather(double lat, double lng)
+    public MainPage()
     {
 
+        Shell.SetNavBarIsVisible(this, false);
+        InitializeComponent();
+        Handle();
+
+    }
+    private async void Handle()
+    {
+        Report report = await OpenWeather(44, -73.6);
+        tempText.Text = report.Temp;
+        weatherText.Text = report.Weather;
+        weatherIcon.Source = report.Icon;
+        scrollBack.BackgroundColor = Color.FromHex(report.Color);
+
+    }
+    public static async Task<Report> OpenWeather(double lat, double lng)
+    {
+        string color;
         // Key and URL Build
-        string key = "2ccabbbdd0c082256f182826839977e9";
-        string url = $"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lng}&appid={key}";
+        string key = "56605f7020426e4c13970270f548908e";
+        string url = $"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lng}&appid={key}&units=imperial";
 
 
         // Build and Connect to OpenWeather API
@@ -32,9 +38,28 @@ public partial class MainPage : ContentPage
         HttpResponseMessage response = await client.GetAsync(url);
         response.EnsureSuccessStatusCode();
 
+        // Get JSON Data
         string content = await response.Content.ReadAsStringAsync();
         dynamic result = JsonConvert.DeserializeObject<dynamic>(content);
-        return new Report(result.main.temp,result.weather);
+        string temp = result.main.temp.ToString() + " F";
+        string weather = result.weather[0].main.ToString();
+        ImageSource icon = $"https://openweathermap.org/img/wn/{result.weather[0].icon.ToString()}.png";
+
+        if (result.dt > result.sys.sunset)
+        {
+            color = "#666666";
+        }
+        else
+        {
+            color = "#48afff";
+        }
+
+        // Return Data
+        return new Report(temp, weather, icon, color);
+
+
     }
 }
+
+
 
