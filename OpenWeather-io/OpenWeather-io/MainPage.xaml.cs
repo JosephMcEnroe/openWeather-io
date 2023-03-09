@@ -1,6 +1,10 @@
 ﻿using Newtonsoft.Json;
 using OpenWeather_io;
 using System;
+using System.Net;
+using System.Net.Sockets;
+using System.Net.NetworkInformation;
+using Microsoft.Maui.Networking;
 
 namespace OpenWeather_io;
 
@@ -15,8 +19,9 @@ public partial class MainPage : ContentPage
         Handle();
 
     }
-    private async void Handle()
+    private async void Handle() //Starts a thread async after page intialization
     {
+        MakeRequest();
         Report report = await OpenWeather(44, -73.6);
         tempText.Text = report.Temp;
         weatherText.Text = report.Weather;
@@ -58,6 +63,43 @@ public partial class MainPage : ContentPage
         return new Report(temp, weather, icon, color);
 
 
+    }
+
+    public static async Task MakeRequest()
+    {
+        using (HttpClient client = new HttpClient())
+        {
+            try
+            {
+                string key = "AIzaSyAgURdrNzcJ8JTamAFq9ikwLBd2Zf1dL70";
+                string ip = GetIP();
+                string url = $"https://www.googleapis.com/geolocation/v1/geolocate?key={key}";
+                HttpResponseMessage response = await client.GetAsync(url);
+                response.EnsureSuccessStatusCode();
+                string content = await response.Content.ReadAsStringAsync();
+                dynamic result = JsonConvert.DeserializeObject<dynamic>(content);
+            }   
+            catch
+            {
+
+            }
+        }
+    }
+
+    public static string GetIP() {
+
+        IPAddress[] addresses = Dns.GetHostAddresses(Dns.GetHostName());
+
+        foreach (IPAddress address in addresses)
+        {
+            if (address.AddressFamily == AddressFamily.InterNetwork)
+            {
+                return address.ToString();
+   
+            }
+        }
+        return null;
+       
     }
 }
 
